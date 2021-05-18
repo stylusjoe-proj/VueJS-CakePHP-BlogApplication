@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="css/main.css">
+        <title>My VueJS app</title>
+    </head>
+    <body>
+        <div id="vueApp">
+            <h1 class="welcome">{{welcomeMessage}}</h1>
+            <h3> All Item[s] on List </h3>
+            <ul>
+                <li v-for="todo in todos"
+                    v-bind:key="todo.text"
+                    v-bind:class="{'is-complete':todo.completed}">
+                    {{ todo.text }}
+
+                    <button class="button"
+                            id="btn2"
+                            v-on:click="todo.completed = !todo.completed">
+                        Complete
+                    </button>
+                </li>
+
+            </ul>
+            </br>
+
+            <h3> Item[s] remaining on List </h3>
+            <ul>
+                <li v-for="todo in todos"
+                    v-bind:key="todo.text"
+                    v-if="!todo.completed">
+                    {{ todo.text }}
+                </li>
+            </ul>
+         
+
+            <h3> Add Item[s] </h3>
+            <label for="addinput">
+                Add Item Here:
+            </label>
+
+            <input class="addinput"
+                   id="addinput"
+                   v-model="inputText" />
+
+            <button class="button"
+                    v-on:click="addItem()"
+                    id="btn1">
+                Add
+            </button>
+            <button class="button"
+                    v-on:click="deleteItem()"
+                    id="btn1">
+                Delete Item
+            </button>
+
+            <button class="button"
+                    v-on:click="window.location.reload()"
+                    id="btn1">
+                Reload Page
+            </button>
+
+        </div>
+
+
+        <script src="js/vue.min.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>
