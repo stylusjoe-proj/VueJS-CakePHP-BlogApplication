@@ -10,29 +10,29 @@
     <body>
         <div id="vueApp">
             <h1 class="welcome">{{welcomeMessage}}</h1>
-            <h3> All Item[s] on List </h3>
+            <h3> Articles: </h3>
             <ul>
-                <li v-for="todo in todos"
-                    v-bind:key="todo.text"
-                    v-bind:class="{'is-complete':todo.completed}">
-                    {{ todo.text }}
+                <li v-for="article in articles"
+                    v-bind:key="article.text"
+                    v-bind:class="{'is-complete':article.completed}">
+                    {{ article.title }}
 
                     <button class="button"
                             id="btn2"
-                            v-on:click="todo.completed = !todo.completed">
-                        Complete
+                            v-on:click="article.completed = !article.completed">
+                        -> Read
                     </button>
                 </li>
 
             </ul>
             </br>
 
-            <h3> Item[s] remaining on List </h3>
+            <h3> Unread Articles[s] </h3>
             <ul>
-                <li v-for="todo in todos"
-                    v-bind:key="todo.text"
-                    v-if="!todo.completed">
-                    {{ todo.text }}
+                <li v-for="article in articles"
+                    v-bind:key="article.title"
+                    v-if="!article.completed">
+                    {{ article.title }}
                 </li>
             </ul>
          
@@ -68,5 +68,6 @@
 
         <script src="js/vue.min.js"></script>
         <script src="js/main.js"></script>
+        <script src="js/fetch.js"></script>
     </body>
 </html>

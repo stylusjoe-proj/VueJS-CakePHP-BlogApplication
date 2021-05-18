@@ -1,9 +1,11 @@
 let app = new Vue({
     el: "#vueApp",
     data: {
-        todos: [
+        articles: [
             {
-                text: 'Dev. Internship ToDo Application',
+                title: 'Dev. Internship ToDo Application',
+                text: '',
+                read: 'No',
                 completed: false
             }
 
@@ -16,7 +18,6 @@ let app = new Vue({
             if (this.inputText != "") {
                
                 app.todos.push({ text: this.inputText, completed: false })
-            
 
             }
             else { }
@@ -24,7 +25,7 @@ let app = new Vue({
         deleteItem() {
             // if todos id = todos number then delete
 
-            this.todos.splice(this.todos.length - 1, 1);
+            this.articles.splice(this.articles.length - 1, 1);
            
 
         }
@@ -32,16 +33,16 @@ let app = new Vue({
     mounted() {
         if (localStorage.getItem('new list') !== null) {
             try {
-                this.todos = JSON.parse(localStorage.getItem('new list'));
+                this.articles = JSON.parse(localStorage.getItem('new list'));
             } catch (e) {
                 
             }
         }
     },
     watch: {
-        todos: function () {
-            localStorage.setItem('new list', JSON.stringify(this.todos));
-            console.log(this.todos)
+        articles: function () {
+            localStorage.setItem('new list', JSON.stringify(this.articles));
+            console.log(this.articles)
             
         }
     }
