@@ -2,51 +2,69 @@ let app = new Vue({
     el: "#vueApp",
     data: {
         articles: [
-            {
-                title: 'Dev. Internship ToDo Application',
-                text: '',
-                read: 'No',
-                completed: false
-            }
-
+            {}
         ],
         welcomeMessage: 'The Blog Application',
-        inputText: ''
+        articleTitle: "",
+        articleBody: "",
+        token: ""
     },
     methods: {
-        addItem() {
-            if (this.inputText != "") {
-               
-                app.todos.push({ text: this.inputText, completed: false })
+        addArticle() {
 
+            var articleTitle = document.getElementById("titleinput").value;
+            var articleBody = document.getElementById("bodyinput").value;
+
+            const newArticle = {
+                title: `${articleTitle}`,
+                body: `${articleBody}`
             }
-            else { }
+
+
+            fetch('http://206.189.202.188:2593/api/articles/add', {
+                method: 'post',
+                mode: 'no-cors',
+                headers: {
+                    "Accept": "*",
+                    "Authorization": `Bearer ${this.token}`,
+                    "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newArticle),
+            })
+            .then(response => { 
+                if (response.ok) {
+                    response.json().then(json => { console.log(json);
+                    });
+                }
+            });
         },
-        deleteItem() {
-            // if todos id = todos number then delete
+        deleteArticle(x) {
 
-            this.articles.splice(this.articles.length - 1, 1);
-           
+            var articleID = x;
 
+            fetch(`http://206.189.202.188:2593/api/articles/delete/${articleID}`, {
+                method: 'post',  
+                mode: 'no-cors',
+                headers: {
+                    "Accept": "*",
+                    "Authorization": `Bearer ${this.token}`,
+                    "Content-Type": "application/json"
+                }
+            })
         }
     },
     mounted() {
-        if (localStorage.getItem('new list') !== null) {
-            try {
-                this.articles = JSON.parse(localStorage.getItem('new list'));
-            } catch (e) {
-                
-            }
-        }
-    },
-    watch: {
-        articles: function () {
-            localStorage.setItem('new list', JSON.stringify(this.articles));
-            console.log(this.articles)
-            
-        }
+
+        fetch('http://206.189.202.188:2593/api/users/token')
+            .then(response => response.json().then(data => { this.token = data;}))
+
+        
+        fetch('http://206.189.202.188:2593/api/articles/index')
+            .then(response => response.json().then(data => { this.articles = data;}))
+
     }
     
-});
+    
 
+});
 

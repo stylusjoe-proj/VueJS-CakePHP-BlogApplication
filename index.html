@@ -5,69 +5,56 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="css/main.css">
-        <title>My VueJS app</title>
+        <title>Blog front-end app</title>
     </head>
     <body>
         <div id="vueApp">
+            <div class="row">
             <h1 class="welcome">{{welcomeMessage}}</h1>
-            <h3> Articles: </h3>
-            <ul>
-                <li v-for="article in articles"
-                    v-bind:key="article.text"
-                    v-bind:class="{'is-complete':article.completed}">
-                    {{ article.title }}
-
-                    <button class="button"
-                            id="btn2"
-                            v-on:click="article.completed = !article.completed">
-                        -> Read
-                    </button>
-                </li>
-
-            </ul>
             </br>
+                <div class="column">
+                    <h3> All Blog Entries </h3>
+                    <ul>
+                        <li v-for="article in articles"
+                            v-bind:key="article.title"
+                            >
+                            {{ article.title }}
 
-            <h3> Unread Articles[s] </h3>
-            <ul>
-                <li v-for="article in articles"
-                    v-bind:key="article.title"
-                    v-if="!article.completed">
-                    {{ article.title }}
-                </li>
-            </ul>
-         
+                            <button class="button"
+                                    id="btn2"
+                                    v-on:click="deleteArticle(article.id)">
+                                Delete
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h2> Enter the Title and Body of New Article </h1>
+                    <label for="titleinput">
+                        Title:
+                    </label> <br>
+        
+                    <input class="titleinput"
+                        id="titleinput"
+                        v-model="articleTitle" /> <br>
+                        
+                    <label for="bodyinput">
+                        Body:
+                    </label> <br>
+        
+                    <textarea class="bodyinput"
+                        id="bodyinput"
+                        v-model="articleBody" > </textarea> <br>
 
-            <h3> Add Item[s] </h3>
-            <label for="addinput">
-                Add Item Here:
-            </label>
-
-            <input class="addinput"
-                   id="addinput"
-                   v-model="inputText" />
-
-            <button class="button"
-                    v-on:click="addItem()"
-                    id="btn1">
-                Add
-            </button>
-            <button class="button"
-                    v-on:click="deleteItem()"
-                    id="btn1">
-                Delete Item
-            </button>
-
-            <button class="button"
-                    v-on:click="window.location.reload()"
-                    id="btn1">
-                Reload Page
-            </button>
-
+                    
+                    <button class="button"
+                        v-on:click="addArticle()"
+                        id="btn1">
+                    Add
+                    </button>
+                </div>
         </div>
-
-
         <script src="js/vue.min.js"></script>
         <script src="js/main.js"></script>
-        <script src="js/fetch.js"></script>
     </body>
 </html>
