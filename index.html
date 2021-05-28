@@ -18,7 +18,10 @@
                         <li v-for="article in articles"
                             v-bind:key="article.title"
                             >
+                            <h4> Title:</h4>
                             {{ article.title }}
+                            <br/> <h4>Body:</h4>
+                            {{ article.body }}
 
                             <button class="button"
                                     id="btn2"
@@ -51,8 +54,13 @@
                         v-on:click="addArticle()"
                         id="btn1">
                     Add
-                    </button>
-                </div>
+            </button> 
+            <button class="button"
+                v-on:click="window.location.reload()"
+                id="btn1">
+                Reload Page
+            </button>
+            </div>
         </div>
         <script src="js/vue.min.js"></script>
         <script src="js/main.js"></script>
