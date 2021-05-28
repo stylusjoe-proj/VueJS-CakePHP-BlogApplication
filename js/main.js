@@ -21,7 +21,7 @@ let app = new Vue({
             }
 
 
-            fetch('http://206.189.202.188:2593/api/articles/add', {
+            fetch('http://206.189.202.188:2593/api/articles/add.json', {
                 method: 'post',
                 mode: 'no-cors',
                 headers: {
@@ -37,6 +37,9 @@ let app = new Vue({
                     });
                 }
             });
+
+            document.getElementById("titleinput").reset();
+            document.getElementById("bodyinput").reset();
         },
         deleteArticle(x) {
 
@@ -62,6 +65,13 @@ let app = new Vue({
         fetch('http://206.189.202.188:2593/api/articles/index')
             .then(response => response.json().then(data => { this.articles = data;}))
 
+    },
+    watch: {
+        articles: function () {
+            fetch('http://206.189.202.188:2593/api/articles/index')
+            .then(response => response.json().then(data => { this.articles = data;}))
+            
+        }
     }
     
     
